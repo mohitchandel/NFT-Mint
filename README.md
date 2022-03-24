@@ -1,6 +1,6 @@
 # NFT-Mint
 
-There are 3 NFT (Non Fungible Token) standard are used:
+There are 3 NFT (Non Fungible Token) standard used in this project:
 - ERC721
 - ERC721A
 - ERC1155
