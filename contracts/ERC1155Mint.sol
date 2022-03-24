@@ -1,27 +1,23 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ERC1155Mint is ERC1155, Ownable {
-
+contract ERC1155Mint is ERC1155 {
     address admin;
-
-    uint8 public constant CaptainAmericaShield = 0;
-    uint8 public constant HulkPunch = 1;
-    uint8 public constant SpiderManSuit = 2;
+    address reciever = 0x3799ff376455A3d095a21689B3D479DEBc1c49ED;
 
     constructor() ERC1155("https://marvelNft.example/api/item/{id}.json") {
-
         admin = msg.sender;
-        _mint(admin, CaptainAmericaShield, 12, "0x00");
-        _mint(admin, HulkPunch, 10, "0x00");
-        _mint(admin, SpiderManSuit, 2, "0x00");
     }
 
-    function transferNFT(uint256 _tokenId) external payable {
-        _safeTransferFrom(admin, msg.sender, _tokenId, 1, "0x00");
+    function mint(
+        uint256[] memory _id,
+        uint256[] memory _amount,
+        bytes memory data
+    ) public {
+        _mintBatch(admin, _id, _amount, data);
+        _safeBatchTransferFrom(admin, reciever, _id, _amount, data);
     }
-
 }
